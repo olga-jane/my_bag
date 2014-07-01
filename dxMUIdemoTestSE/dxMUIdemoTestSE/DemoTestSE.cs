@@ -45,7 +45,7 @@ namespace dxMUIdemoTestSE
             InitializeComponent();
 
             // create culture
-            CreateCustomeCulture("en-CS");
+            //CreateCustomeCulture("en-CS");
 
             // Collection of supported languages
             cultureNamesColl = repositoryItemComboBoxLang.Items;
@@ -75,7 +75,7 @@ namespace dxMUIdemoTestSE
                             // specify the collection of items to display in the 
                             // drop-down window (the RepositoryItemComboBox.Items 
                             // property).
-                            cultureNamesColl.Add(new Language(ci.EnglishName,
+                            cultureNamesColl.Add(new Language(ci.NativeName,
                                 f.Substring(appPath.Length + strFileName.Length + 1, cltTypeCount)));
                             break;
                         }
@@ -94,7 +94,6 @@ namespace dxMUIdemoTestSE
 
         private void CreateCustomeCulture(string prmStr)
         {
-
             // Create a CultureAndRegionInfoBuilder object named "x-en-US-sample".
             CultureAndRegionInfoBuilder cib = 
                 new CultureAndRegionInfoBuilder(prmStr, CultureAndRegionModifiers.None);
@@ -111,13 +110,12 @@ namespace dxMUIdemoTestSE
             try
             {
                 // Register the custom culture.
-                cib.Register(); 
+                //cib.Register(); 
             }
             catch (InvalidOperationException)
             {
                 MessageBox.Show("Swallow the exception: \nthe culture already is registered");
             }
-
         }
 
 
