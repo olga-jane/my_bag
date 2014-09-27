@@ -21,8 +21,8 @@ namespace dxDemoTest
     public partial class FormDxDemoTest : DevExpress.XtraEditors.XtraForm
     {
 
-        ResourceManager rm;
         ComboBoxItemCollection cultureNamesColl;
+        CultureInfo originalCulture = Thread.CurrentThread.CurrentCulture;
 
         public FormDxDemoTest()
         {
@@ -36,10 +36,10 @@ namespace dxDemoTest
 
             try
             {
-                cultureNamesColl.Add("en-US");
-                cultureNamesColl.Add("fr-FR");
-                cultureNamesColl.Add("ru-RU");
-                cultureNamesColl.Add("zh-CH");
+                cultureNamesColl.Add(new Language("English", "en-US"));
+                cultureNamesColl.Add(new Language("Françaises", "fr-FR"));
+                cultureNamesColl.Add(new Language("Русский", "ru-RU"));
+                cultureNamesColl.Add(new Language("中國", "zh-CH"));
             }
             finally
             {
@@ -50,21 +50,34 @@ namespace dxDemoTest
         private void comboBoxEdit1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxEditDemoTest.SelectedIndex >= 0 &&
-              comboBoxEditDemoTest.SelectedIndex < cultureNamesColl.Count)
+                comboBoxEditDemoTest.SelectedIndex < cultureNamesColl.Count)
             {
-                // resource extraction
-                rm = new ResourceManager("dxDemoTest.Strings", typeof(Program).Assembly);
+                try
+                {
+                    // resource extraction
+                    var rm = new ResourceManager("dxDemoTest.Strings", typeof(Program).Assembly);
 
-                string cultureName = (string)cultureNamesColl[comboBoxEditDemoTest.SelectedIndex];
+                    string cultureName = ((Language)cultureNamesColl[comboBoxEditDemoTest.SelectedIndex]).LngValue;
 
-                CultureInfo culture = CultureInfo.CreateSpecificCulture(cultureName);
+                    CultureInfo culture = CultureInfo.CreateSpecificCulture(cultureName);
 
-                Thread.CurrentThread.CurrentCulture = culture;
-                Thread.CurrentThread.CurrentUICulture = culture;
+                    Thread.CurrentThread.CurrentCulture = culture;
+                    Thread.CurrentThread.CurrentUICulture = culture;
 
-                this.Text = rm.GetString("TimeHeader");
+                    this.Text = rm.GetString("TimeHeader");
 
-                simpleButtonDemoTest.Text = rm.GetString("btnCapture");
+                    simpleButtonDemoTest.Text = rm.GetString("btnCapture");
+
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Unable to instantiate culture " + exc.Message);
+                }
+                finally
+                {
+                    Thread.CurrentThread.CurrentCulture = originalCulture;
+                    Thread.CurrentThread.CurrentUICulture = originalCulture;
+                }
             }
         }
     }
