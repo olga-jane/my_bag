@@ -35,13 +35,13 @@
             // 
             // comboBoxEditDemoTest
             // 
-            this.comboBoxEditDemoTest.Location = new System.Drawing.Point(13, 13);
+            this.comboBoxEditDemoTest.Location = new System.Drawing.Point(12, 12);
             this.comboBoxEditDemoTest.Name = "comboBoxEditDemoTest";
             this.comboBoxEditDemoTest.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.comboBoxEditDemoTest.Size = new System.Drawing.Size(150, 20);
             this.comboBoxEditDemoTest.TabIndex = 0;
-            this.comboBoxEditDemoTest.SelectedIndexChanged += new System.EventHandler(this.comboBoxEdit1_SelectedIndexChanged);
+            this.comboBoxEditDemoTest.SelectedIndexChanged += new System.EventHandler(this.comboBoxEditDemoTest_SelectedIndexChanged);
             // 
             // simpleButtonDemoTest
             // 
@@ -60,6 +60,7 @@
             this.Controls.Add(this.simpleButtonDemoTest);
             this.Controls.Add(this.comboBoxEditDemoTest);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.IsMdiContainer = true;
             this.Name = "FormDxDemoTest";
             this.Text = "Heder";
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEditDemoTest.Properties)).EndInit();

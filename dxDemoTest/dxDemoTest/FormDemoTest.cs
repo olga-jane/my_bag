@@ -13,6 +13,9 @@ using System.Resources;
 using System.Threading;
 using DevExpress.XtraEditors.Controls;
 
+// finde resourses
+using System.IO;
+
 // this atribute should be set culture as default
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
 
@@ -28,8 +31,6 @@ namespace dxDemoTest
         {
             InitializeComponent();
 
-            comboBoxEditDemoTest.EditValue = "en-US";
-
             cultureNamesColl = comboBoxEditDemoTest.Properties.Items;
 
             cultureNamesColl.BeginUpdate();
@@ -37,9 +38,30 @@ namespace dxDemoTest
             try
             {
                 cultureNamesColl.Add(new Language("English", "en-US"));
-                cultureNamesColl.Add(new Language("Françaises", "fr-FR"));
-                cultureNamesColl.Add(new Language("Русский", "ru-RU"));
-                cultureNamesColl.Add(new Language("中國", "zh-CH"));
+
+                // Returns the names of the subdirectories (including their paths) 
+                // that match the specified search pattern in the specified 
+                // directory, and optionally searches subdirectories.
+                string appPath = Application.StartupPath;
+                string[] dirs = Directory.GetDirectories(appPath, "*??-??");
+
+                foreach (string d in dirs)
+                {
+                    // Gets the list of supported cultures filtered by the 
+                    // specified CultureTypes parameter.
+                    foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.InstalledWin32Cultures))
+                    {
+                        if (ci.Name.Length >= 2 &&
+                            ci.Name.Substring(0, 2) == d.Substring(appPath.Length + 1, 2))
+                        {
+                            // specify the collection of items to display in the 
+                            // drop-down window (the RepositoryItemComboBox.Items 
+                            // property).
+                            cultureNamesColl.Add(new Language(ci.EnglishName, d.Substring(appPath.Length + 1)));
+                            break;
+                        }
+                    }
+                }
             }
             finally
             {
@@ -47,10 +69,11 @@ namespace dxDemoTest
             }
         }
 
-        private void comboBoxEdit1_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void comboBoxEditDemoTest_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxEditDemoTest.SelectedIndex >= 0 &&
-                comboBoxEditDemoTest.SelectedIndex < cultureNamesColl.Count)
+               comboBoxEditDemoTest.SelectedIndex < cultureNamesColl.Count)
             {
                 try
                 {
