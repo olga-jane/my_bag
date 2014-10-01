@@ -56,7 +56,6 @@ namespace dxMUIdemoTestSE
                             ci.Name.Substring(0, cltTypeCount) == 
                             f.Substring(appPath.Length + strFileName.Length + 1, cltTypeCount))
                         {
-                            
                             // specify the collection of items to display in the 
                             // drop-down window (the RepositoryItemComboBox.Items 
                             // property).
@@ -74,36 +73,47 @@ namespace dxMUIdemoTestSE
         }
 
 
+        private void ChangeControlsCapture(ResourceManager rm, CultureInfo culture)
+        {
+            barSubItemFile.Caption = rm.GetString("MenuFile", culture);
+            barSubItemOptions.Caption = rm.GetString("MenuOptions", culture);
+            barEditItemLang.Caption = rm.GetString("ComboLang", culture);
+
+            barButtonItemCloseAll.Caption = rm.GetString("BtnName", culture);
+            barButtonItemAddDoc.Caption = rm.GetString("BtnName", culture);
+
+            this.Text = rm.GetString("TitleName", culture);
+        }
+
 
         private void barEditItemLang_EditValueChanged(object sender, EventArgs e)
         {
+            ResourceManager rm;
+
             try
             {
-                if (barEditItemLang.EditValue is Language)
+                if (barEditItemLang.EditValue is Language &&
+                    ((Language)barEditItemLang.EditValue).LngValue != "en-US")
                 {
-                    var rm = ResourceManager.CreateFileBasedResourceManager("Strings", "Resources", null);
+                    rm = ResourceManager.CreateFileBasedResourceManager("Strings", "Resources", null);
 
-                    string cultureName = ((Language)barEditItemLang.EditValue).LngValue;
-
-                    CultureInfo culture = CultureInfo.CreateSpecificCulture(cultureName);
-
-                    Thread.CurrentThread.CurrentCulture = culture;
-                    Thread.CurrentThread.CurrentUICulture = culture;
-
-                    barSubItemFile.Caption = rm.GetString("MenuFile", culture);
-                    barSubItemOptions.Caption = rm.GetString("MenuOptions", culture);
-                    barEditItemLang.Caption = rm.GetString("ComboLang", culture);
-
-                    barButtonItemCloseAll.Caption = rm.GetString("BtnName", culture);
-                    barButtonItemAddDoc.Caption = rm.GetString("BtnName", culture);
-
-                    this.Text = rm.GetString("TitleName", culture);
                 }
                 else
                 {
                     barEditItemLang.EditValue = cultureNamesColl[0];
+
+                    rm = new ResourceManager("dxMUIdemoTestSE.Strings", typeof(Program).Assembly);
+
                 }
 
+                string cultureName = ((Language)barEditItemLang.EditValue).LngValue;
+
+                CultureInfo culture = CultureInfo.CreateSpecificCulture(cultureName);
+
+                Thread.CurrentThread.CurrentCulture = culture;
+                Thread.CurrentThread.CurrentUICulture = culture;
+
+                ChangeControlsCapture(rm, culture);
             }
             catch (Exception excep)
             {
