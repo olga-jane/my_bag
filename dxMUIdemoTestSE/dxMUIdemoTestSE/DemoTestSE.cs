@@ -25,13 +25,21 @@ namespace dxMUIdemoTestSE
 
         int count;
 
+        /// <summary>
+        /// The assigned name of resourse file
+        /// </summary>
         readonly string strFileName = "Strings";
+
+        /// <summary>
+        /// The number of characters in culture type string
+        /// </summary>
         readonly int cltTypeCount = 5;
 
         public DemoTestSE()
         {
             InitializeComponent();
 
+            // Collection of supported languages
             cultureNamesColl = repositoryItemComboBoxLang.Items;
             cultureNamesColl.BeginUpdate();
 
@@ -44,7 +52,6 @@ namespace dxMUIdemoTestSE
                 // directory, and optionally searches subdirectories.
                 string appPath = Application.StartupPath + "\\Resources\\";
                 string[] files = Directory.GetFiles(appPath, "*.??-??.resources");
-
 
                 foreach (string f in files)
                 {
@@ -72,7 +79,11 @@ namespace dxMUIdemoTestSE
             }
         }
 
-
+        /// <summary>
+        /// The renaming controls function
+        /// </summary>
+        /// <param name="rm"> Resource Manager object create by correspond resource file </param>
+        /// <param name="culture"> culture </param>
         private void ChangeControlsCapture(ResourceManager rm, CultureInfo culture)
         {
             barSubItemFile.Caption = rm.GetString("MenuFile", culture);
@@ -113,6 +124,7 @@ namespace dxMUIdemoTestSE
                 Thread.CurrentThread.CurrentCulture = culture;
                 Thread.CurrentThread.CurrentUICulture = culture;
 
+                // renaming
                 ChangeControlsCapture(rm, culture);
             }
             catch (Exception excep)

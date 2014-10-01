@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BtnName" xml:space="preserve">
-    <value>ne rien faire</value>
+    <value>Do nothing</value>
   </data>
   <data name="ComboLang" xml:space="preserve">
-    <value>Idiome</value>
+    <value>Language</value>
   </data>
   <data name="MenuFile" xml:space="preserve">
-    <value>ficher</value>
+    <value>File</value>
   </data>
   <data name="MenuOptions" xml:space="preserve">
-    <value>faculté</value>
+    <value>Options</value>
   </data>
   <data name="TitleName" xml:space="preserve">
-    <value>Certains démo prog</value>
+    <value>Some demo proj</value>
   </data>
 </root>
