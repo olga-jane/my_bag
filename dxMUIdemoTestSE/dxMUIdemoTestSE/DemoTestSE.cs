@@ -26,7 +26,7 @@ namespace dxMUIdemoTestSE
         ComboBoxItemCollection cultureNamesColl;
 
         /// <summary>
-        /// counting of chil windows number
+        /// counting of child windows number
         /// </summary>
         private int count;
 
@@ -44,8 +44,12 @@ namespace dxMUIdemoTestSE
         {
             InitializeComponent();
 
+            // create culture
+            CreateCustomeCulture("en-CS");
+
             // Collection of supported languages
             cultureNamesColl = repositoryItemComboBoxLang.Items;
+
             cultureNamesColl.BeginUpdate();
 
             try
@@ -88,6 +92,35 @@ namespace dxMUIdemoTestSE
             }
         }
 
+        private void CreateCustomeCulture(string prmStr)
+        {
+
+            // Create a CultureAndRegionInfoBuilder object named "x-en-US-sample".
+            CultureAndRegionInfoBuilder cib = 
+                new CultureAndRegionInfoBuilder(prmStr, CultureAndRegionModifiers.None);
+
+            // Populate the new CultureAndRegionInfoBuilder object with culture information.
+            CultureInfo ci = new CultureInfo("en-US");
+            cib.LoadDataFromCultureInfo(ci);
+
+            // Populate the new CultureAndRegionInfoBuilder object with region information.
+            RegionInfo ri = new RegionInfo("US");
+            cib.LoadDataFromRegionInfo(ri);
+
+            // Register the culture. 
+            try
+            {
+                // Register the custom culture.
+                cib.Register(); 
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Swallow the exception: \nthe culture already is registered");
+            }
+
+        }
+
+
         /// <summary>
         /// The renaming controls function
         /// </summary>
@@ -119,8 +152,7 @@ namespace dxMUIdemoTestSE
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
         }
-
-
+        
         private void barEditItemLang_EditValueChanged(object sender, EventArgs e)
         {
             ResourceManager rm;
@@ -133,6 +165,8 @@ namespace dxMUIdemoTestSE
                 if (barEditItemLang.EditValue is Language &&
                     ((Language)barEditItemLang.EditValue).LngValue != "en-US")
                 {
+                    // http//edndoc.esri.com/arcobjects/
+                    // 9.1/ArcGISDevHelp/DevelopmentEnvs/DotNet/WorkingWithResources.htm
                     rm = ResourceManager.CreateFileBasedResourceManager("Strings", "Resources", null);
                 }
                 else
@@ -149,6 +183,7 @@ namespace dxMUIdemoTestSE
 
                 // renaming
                 ChangeControlsCapture(rm, culture);
+
             }
             catch (Exception excep)
             {
@@ -160,9 +195,7 @@ namespace dxMUIdemoTestSE
             }
         }
 
-
         private void DemoTestSE_Load(object sender, EventArgs e) { }
-
 
 
         private void barButtonItemAddDoc_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

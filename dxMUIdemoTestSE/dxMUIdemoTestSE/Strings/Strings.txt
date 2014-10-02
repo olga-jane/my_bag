@@ -1,9 +1,0 @@
-TitleName=Some demo prog
-
-BtnName=Do nothing
-
-MenuFile=File
-Menu
-Options=Options
-
-ComboLang=Language
