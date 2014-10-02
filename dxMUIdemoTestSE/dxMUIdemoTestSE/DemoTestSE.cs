@@ -78,7 +78,7 @@ namespace dxMUIdemoTestSE
                     }
                 }
             }
-            catch (Exception excep)
+            catch ( DirectoryNotFoundException excep)
             {
                 MessageBox.Show("Warning!\n" + excep.Message);
             }
@@ -93,14 +93,25 @@ namespace dxMUIdemoTestSE
         /// </summary>
         /// <param name="rm"> Resource Manager object created for correspond resource file </param>
         /// <param name="culture"> culture </param>
-        private void ChangeControlsCapture(ResourceManager rm, CultureInfo culture)
+        private void ChangeControlsCapture(ResourceManager rm, CultureInfo clt)
         {
-            barSubItemFile.Caption =        rm.GetString("MenuFile", culture);
-            barSubItemOptions.Caption =     rm.GetString("MenuOptions", culture);
-            barEditItemLang.Caption =       rm.GetString("ComboLang", culture);
-            barButtonItemCloseAll.Caption = rm.GetString("BtnName", culture);
-            barButtonItemAddDoc.Caption =   rm.GetString("BtnName", culture);
-            this.Text =                     rm.GetString("TitleName", culture);
+            barSubItemFile.Caption =
+                rm.GetString("MenuFile", clt);
+
+            barSubItemOptions.Caption =
+                rm.GetString("MenuOptions", clt);
+
+            barEditItemLang.Caption =
+                rm.GetString("ComboLang", clt);
+
+            barButtonItemCloseAll.Caption =
+                rm.GetString("BtnName", clt);
+
+            barButtonItemAddDoc.Caption =
+                rm.GetString("BtnName", clt);
+
+            this.Text =
+                rm.GetString("TitleName", clt);
         }
 
         private void SetCulture(CultureInfo culture)
