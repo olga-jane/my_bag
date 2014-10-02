@@ -7,15 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+// this references should be added
 using System.Globalization;
 using System.Resources;
 using System.Threading;
 using DevExpress.XtraEditors.Controls;
+
+// for finding resourses
 using System.IO;
 
-
 // this atribute should be set culture as default
-[assembly: NeutralResourcesLanguage("en-US")]
+[assembly: NeutralResourcesLanguageAttribute("en-US")]
 
 namespace dxMUIdemoTestSE
 {
@@ -23,17 +25,20 @@ namespace dxMUIdemoTestSE
     {
         ComboBoxItemCollection cultureNamesColl;
 
-        int count;
+        /// <summary>
+        /// counting of chil windows number
+        /// </summary>
+        private int count;
 
         /// <summary>
         /// The assigned name of resourse file
         /// </summary>
-        readonly string strFileName = "Strings";
+        private readonly string strFileName = "Strings";
 
         /// <summary>
         /// The number of characters in culture type string
         /// </summary>
-        readonly int cltTypeCount = 5;
+        private readonly int cltTypeCount = 5;
 
         public DemoTestSE()
         {
@@ -73,6 +78,10 @@ namespace dxMUIdemoTestSE
                     }
                 }
             }
+            catch (Exception excep)
+            {
+                MessageBox.Show("Warning!\n" + excep.Message);
+            }
             finally
             {
                 cultureNamesColl.EndUpdate();
@@ -82,18 +91,22 @@ namespace dxMUIdemoTestSE
         /// <summary>
         /// The renaming controls function
         /// </summary>
-        /// <param name="rm"> Resource Manager object create by correspond resource file </param>
+        /// <param name="rm"> Resource Manager object created for correspond resource file </param>
         /// <param name="culture"> culture </param>
         private void ChangeControlsCapture(ResourceManager rm, CultureInfo culture)
         {
-            barSubItemFile.Caption = rm.GetString("MenuFile", culture);
-            barSubItemOptions.Caption = rm.GetString("MenuOptions", culture);
-            barEditItemLang.Caption = rm.GetString("ComboLang", culture);
-
+            barSubItemFile.Caption =        rm.GetString("MenuFile", culture);
+            barSubItemOptions.Caption =     rm.GetString("MenuOptions", culture);
+            barEditItemLang.Caption =       rm.GetString("ComboLang", culture);
             barButtonItemCloseAll.Caption = rm.GetString("BtnName", culture);
-            barButtonItemAddDoc.Caption = rm.GetString("BtnName", culture);
+            barButtonItemAddDoc.Caption =   rm.GetString("BtnName", culture);
+            this.Text =                     rm.GetString("TitleName", culture);
+        }
 
-            this.Text = rm.GetString("TitleName", culture);
+        private void SetCulture(CultureInfo culture)
+        {
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
         }
 
 
@@ -101,28 +114,27 @@ namespace dxMUIdemoTestSE
         {
             ResourceManager rm;
 
+            // get store current culture value
+            CultureInfo originalCulture = Thread.CurrentThread.CurrentCulture;
+
             try
             {
                 if (barEditItemLang.EditValue is Language &&
                     ((Language)barEditItemLang.EditValue).LngValue != "en-US")
                 {
                     rm = ResourceManager.CreateFileBasedResourceManager("Strings", "Resources", null);
-
                 }
                 else
                 {
                     barEditItemLang.EditValue = cultureNamesColl[0];
-
                     rm = new ResourceManager("dxMUIdemoTestSE.Strings", typeof(Program).Assembly);
-
                 }
 
                 string cultureName = ((Language)barEditItemLang.EditValue).LngValue;
 
                 CultureInfo culture = CultureInfo.CreateSpecificCulture(cultureName);
 
-                Thread.CurrentThread.CurrentCulture = culture;
-                Thread.CurrentThread.CurrentUICulture = culture;
+                SetCulture(culture);
 
                 // renaming
                 ChangeControlsCapture(rm, culture);
@@ -131,16 +143,23 @@ namespace dxMUIdemoTestSE
             {
                 MessageBox.Show("Unable to instantiate culture: ", excep.Message);
             }
+            finally
+            {
+                SetCulture(originalCulture);
+            }
         }
 
+
         private void DemoTestSE_Load(object sender, EventArgs e) { }
+
+
 
         private void barButtonItemAddDoc_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             ++count;
             XtraFormChild child = new XtraFormChild();
             child.MdiParent = this;
-            child.Text = this.Text + "-" + count;
+            child.Text = this.Text + "-" + count + DateTime.Now.ToString();
             child.Show();
         }
 
