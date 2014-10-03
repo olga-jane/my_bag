@@ -44,8 +44,9 @@ namespace dxMUIdemoTestSE
         {
             InitializeComponent();
 
-            // create culture
-            //CreateCustomeCulture("en-CS");
+            // the bottom line should be commented out to create 
+            // a unique language culture with name "en-CS"
+            // CreateCustomeCulture("en-CS");
 
             // Collection of supported languages
             cultureNamesColl = repositoryItemComboBoxLang.Items;
@@ -54,7 +55,7 @@ namespace dxMUIdemoTestSE
 
             try
             {
-                cultureNamesColl.Add(new Language("English", "en-US"));
+                cultureNamesColl.Add(new Language("English (United States)", "en-US"));
 
                 // Returns the names of the subdirectories (including their paths) 
                 // that match the specified search pattern in the specified 
@@ -81,6 +82,17 @@ namespace dxMUIdemoTestSE
                         }
                     }
                 }
+                // Australian English is used as the base of a custom 
+                // language. In this case, the name of culture is 
+                // preserved ("en-AU") and displayed the name changed to 
+                // "English (customizable)"
+                foreach (Language cnc in cultureNamesColl)
+                {
+                    if (cnc.LngValue == "en-AU")
+                    {
+                        cnc.LngName = "English (customizable)";
+                    }
+                }
             }
             catch ( DirectoryNotFoundException excep)
             {
@@ -92,37 +104,44 @@ namespace dxMUIdemoTestSE
             }
         }
 
+
+        
+        #region 
+        // for working this function, you must call it in the constructor
+        /// <summary>
+        /// creation function of new language culture
+        /// </summary>
+        /// <param name="prmStr">the name of new language culture</param>
         private void CreateCustomeCulture(string prmStr)
         {
-            // Create a CultureAndRegionInfoBuilder object named "x-en-US-sample".
+            // Create a CultureAndRegionInfoBuilder object named "prmStr".
             CultureAndRegionInfoBuilder cib = 
                 new CultureAndRegionInfoBuilder(prmStr, CultureAndRegionModifiers.None);
 
             // Populate the new CultureAndRegionInfoBuilder object with culture information.
-            CultureInfo ci = new CultureInfo("en-US");
-            cib.LoadDataFromCultureInfo(ci);
+            cib.LoadDataFromCultureInfo(new CultureInfo("en-US"));
 
             // Populate the new CultureAndRegionInfoBuilder object with region information.
-            RegionInfo ri = new RegionInfo("US");
-            cib.LoadDataFromRegionInfo(ri);
+            cib.LoadDataFromRegionInfo(new RegionInfo("US"));
 
             // Register the culture. 
             try
             {
                 // Register the custom culture.
-                //cib.Register(); 
+                cib.Register(); 
             }
             catch (InvalidOperationException)
             {
                 MessageBox.Show("Swallow the exception: \nthe culture already is registered");
             }
         }
-
+        #endregion
 
         /// <summary>
         /// The renaming controls function
         /// </summary>
-        /// <param name="rm"> Resource Manager object created for correspond resource file </param>
+        /// <param name="rm"> Resource Manager object 
+        /// created for correspond resource file </param>
         /// <param name="culture"> culture </param>
         private void ChangeControlsCapture(ResourceManager rm, CultureInfo clt)
         {
@@ -155,18 +174,19 @@ namespace dxMUIdemoTestSE
         {
             ResourceManager rm;
 
-            // get store current culture value
+            // get store the current culture value
             CultureInfo originalCulture = Thread.CurrentThread.CurrentCulture;
 
             try
             {
+                // In this case, we load built-in internal resources (* .resx)
                 if (barEditItemLang.EditValue is Language &&
                     ((Language)barEditItemLang.EditValue).LngValue != "en-US")
                 {
-                    // http//edndoc.esri.com/arcobjects/
-                    // 9.1/ArcGISDevHelp/DevelopmentEnvs/DotNet/WorkingWithResources.htm
                     rm = ResourceManager.CreateFileBasedResourceManager("Strings", "Resources", null);
                 }
+                // In this case, we load external resources from the folder "Resources"  
+                // are compiled separately (* .resources) 
                 else
                 {
                     barEditItemLang.EditValue = cultureNamesColl[0];
@@ -179,7 +199,7 @@ namespace dxMUIdemoTestSE
 
                 SetCulture(culture);
 
-                // renaming
+                // translation of text matter on controls
                 ChangeControlsCapture(rm, culture);
 
             }
@@ -189,6 +209,8 @@ namespace dxMUIdemoTestSE
             }
             finally
             {
+                // after the change of the names we are 
+                // going back to the original culture
                 SetCulture(originalCulture);
             }
         }
