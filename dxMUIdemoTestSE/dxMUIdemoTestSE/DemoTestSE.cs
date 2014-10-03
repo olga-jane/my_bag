@@ -35,16 +35,19 @@ namespace dxMUIdemoTestSE
         /// </summary>
         private readonly string strFileName = "Strings";
 
+        private readonly string fldResName = "Resources";
+
+        private readonly static string mask = "??-??";
         /// <summary>
         /// The number of characters in culture type string
         /// </summary>
-        private readonly int cltTypeCount = 5;
+        private readonly int cltTypeCount = mask.Count<char>();
 
         public DemoTestSE()
         {
             InitializeComponent();
 
-            // the bottom line should be commented out to create 
+            // the bottom line should be discommented to create 
             // a unique language culture with name "en-CS"
             // CreateCustomeCulture("en-CS");
 
@@ -56,28 +59,39 @@ namespace dxMUIdemoTestSE
             try
             {
                 cultureNamesColl.Add(new Language("English (United States)", "en-US"));
+                barEditItemLang.EditValue = cultureNamesColl[0];
+
+                // 
+                string engDispName;
+                string cltrValName;
+
+                char[] separator = { ' ', '(' };
 
                 // Returns the names of the subdirectories (including their paths) 
                 // that match the specified search pattern in the specified 
                 // directory, and optionally searches subdirectories.
-                string appPath = Application.StartupPath + "\\Resources\\";
-                string[] files = Directory.GetFiles(appPath, "*.??-??.resources");
+                string appPath = Application.StartupPath + "//" + fldResName + "//";
+                string[] files = Directory.GetFiles(appPath, "*." + mask + "*.resources");
 
                 foreach (string f in files)
                 {
+                    cltrValName = f.Substring(appPath.Length + strFileName.Length + 1, cltTypeCount);
+
                     // Gets the list of supported cultures filtered by the 
                     // specified CultureTypes parameter.
                     foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.InstalledWin32Cultures))
                     {
                         if (ci.Name.Length >= cltTypeCount &&
-                            ci.Name.Substring(0, cltTypeCount) == 
-                            f.Substring(appPath.Length + strFileName.Length + 1, cltTypeCount))
+                            ci.Name.Substring(0, cltTypeCount) == cltrValName)
                         {
+                            // forming the display name
+                            engDispName = ci.EnglishName.Split(separator)[0] + " (" + 
+                                          ci.NativeName.Split(separator)[0] + ")";
+
                             // specify the collection of items to display in the 
                             // drop-down window (the RepositoryItemComboBox.Items 
                             // property).
-                            cultureNamesColl.Add(new Language(ci.NativeName,
-                                f.Substring(appPath.Length + strFileName.Length + 1, cltTypeCount)));
+                            cultureNamesColl.Add(new Language(engDispName, cltrValName));
                             break;
                         }
                     }
@@ -104,10 +118,8 @@ namespace dxMUIdemoTestSE
             }
         }
 
-
-        
         #region 
-        // for working this function, you must call it in the constructor
+        // for useing this function, you must discommented it in the constructor
         /// <summary>
         /// creation function of new language culture
         /// </summary>
