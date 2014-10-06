@@ -1,0 +1,5 @@
+TitleName=Header Example
+BtnName=Button Name
+MenuFile=Simple File
+MenuOptions=Some Options
+ComboLang=Slang
