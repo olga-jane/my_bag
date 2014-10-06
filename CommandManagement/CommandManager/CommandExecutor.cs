@@ -50,7 +50,6 @@ public class MenuCommandExecutor : CommandExecutor
 		mi.Checked = bCheck;
 	}
 
-
 	// Execution event handler
 	private void menuItem_Click(object sender, System.EventArgs e)
 	{
