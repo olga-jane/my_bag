@@ -23,7 +23,7 @@
 // You can find sample updates and versions for different programming languages here:
 // http://www.devexpress.com/example=T127997
 
-namespace $safeprojectname$.Views {
+namespace Views {
     partial class TaskCollectionView {
         /// <summary> 
         /// Required designer variable.
@@ -84,7 +84,7 @@ namespace $safeprojectname$.Views {
             // 
             // taskBindingSource
             // 
-            this.taskBindingSource.DataSource = typeof($safeprojectname$.Model.Task);
+            this.taskBindingSource.DataSource = typeof(Model.Task);
             // 
             // gridView1
             // 

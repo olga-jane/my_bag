@@ -31,13 +31,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using $safeprojectname$.ViewModels;
+using ViewModels;
 using DevExpress.Mvvm.POCO;
-using $safeprojectname$.Model;
+using Model;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 
-namespace $safeprojectname$.Views {
+namespace Views {
     public partial class TaskCollectionView : UserControl {
         public TaskCollectionView() {
             InitializeComponent();

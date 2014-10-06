@@ -23,7 +23,7 @@
 // You can find sample updates and versions for different programming languages here:
 // http://www.devexpress.com/example=T127997
 
-namespace $safeprojectname$.Model {
+namespace Model {
     public class Task {
         public string Subject { get; set; }
         public string Description { get; set; }

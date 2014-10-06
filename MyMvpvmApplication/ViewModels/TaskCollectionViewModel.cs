@@ -28,12 +28,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using $safeprojectname$.Model;
+using Model;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using DevExpress.Mvvm.DataAnnotations;
 
-namespace $safeprojectname$.ViewModels {
+namespace ViewModels {
     public class TaskCollectionViewModel {
         IList<Task> tasksCore;
 

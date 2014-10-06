@@ -33,7 +33,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace $safeprojectname$.Properties {
+namespace Properties {
 
 
     /// <summary>
