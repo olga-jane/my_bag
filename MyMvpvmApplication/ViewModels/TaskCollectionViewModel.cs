@@ -33,35 +33,47 @@ using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using DevExpress.Mvvm.DataAnnotations;
 
-namespace ViewModels {
-    public class TaskCollectionViewModel {
+namespace ViewModels 
+{
+    public class TaskCollectionViewModel 
+    {
         IList<Task> tasksCore;
 
-        public TaskCollectionViewModel() {
-            tasksCore = new BindingList<Task> { 
+        public TaskCollectionViewModel() 
+        {
+            tasksCore = new BindingList<Task> 
+            { 
                 new Task(){ Subject="Test Task", Description = "Test Description"}
             };
         }
+
         public IList<Task> Tasks {
             get { return tasksCore; }
         }
 
-        public void AddTask() {
+        public void AddTask() 
+        {
             Tasks.Add(new Task() { Subject = "Task " + Tasks.Count.ToString() });
         }
 
-        public virtual Task SelectedTask {
+        public virtual Task SelectedTask 
+        {
             get;
             set;
         }
-        protected virtual void OnSelectedTaskChanged() {
+
+        protected virtual void OnSelectedTaskChanged() 
+        {
             this.RaiseCanExecuteChanged(x => x.DeleteTask(null));
         }
+
         [Command(UseCommandManager = false)]
-        public void DeleteTask(Task task) {
+        public void DeleteTask(Task task) 
+        {
             Tasks.Remove(task);
         }
-        public bool CanDeleteTask(Task task) {
+        public bool CanDeleteTask(Task task) 
+        {
             return task != null;
         }
 
