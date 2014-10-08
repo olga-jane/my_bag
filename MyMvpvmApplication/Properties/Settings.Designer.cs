@@ -33,7 +33,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Properties {
+namespace $safeprojectname$.Properties {
 
 
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

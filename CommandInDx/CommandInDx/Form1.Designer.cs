@@ -10,6 +10,7 @@
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
+        /// 
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
@@ -66,7 +67,7 @@
             this.barButtonItem4,
             this.barButtonItem5});
             this.barManager1.MainMenu = this.bar2;
-            this.barManager1.MaxItemId = 6;
+            this.barManager1.MaxItemId = 7;
             this.barManager1.StatusBar = this.bar3;
             // 
             // bar1

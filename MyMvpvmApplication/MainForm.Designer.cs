@@ -23,7 +23,7 @@
 // You can find sample updates and versions for different programming languages here:
 // http://www.devexpress.com/example=T127997
 
-
+namespace $safeprojectname$ {
     partial class MainForm {
         /// <summary>
         /// Required designer variable.
@@ -50,7 +50,7 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
-            this.taskCollectionView1 = new Views.TaskCollectionView();
+            this.taskCollectionView1 = new $safeprojectname$.Views.TaskCollectionView();
             this.SuspendLayout();
             // 
             // defaultLookAndFeel1
@@ -82,5 +82,5 @@
         private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
         private Views.TaskCollectionView taskCollectionView1;
     }
-
+}
 

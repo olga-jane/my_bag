@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-using DevExpress.Mvvm;
+// using DevExpress.Mvvm;
 using DevExpress.Mvvm.DataAnnotations;
 using DevExpress.Mvvm.POCO;
 
@@ -20,7 +20,6 @@ namespace CommandInDx
 
         public Form1()
         {
-
             InitializeComponent();
 
             // commands creation by ViewModelSource.Create from DevExpress.Mvvm.POCO
@@ -28,28 +27,22 @@ namespace CommandInDx
             custCommCoreCl = ViewModelSource.Create<CustomComandClose>();
 
             custCommCore.Parent = this;
-            custCommCoreCl.form = null;
 
             BindCommands();
-
         }
-
-
-
-
         
         // comand binding  
         private void BindCommands()
         {
             barButtonItem3.BindCommand(() => custCommCore.Execute(), custCommCore);
             barButtonItem2.BindCommand(() => custCommCore.Execute(), custCommCore);
-            barButtonItem4.BindCommand(() => custCommCoreCl.Execute(null), custCommCoreCl,
-                () => custCommCoreCl.form);
+            barButtonItem4.BindCommand(() => custCommCoreCl.Execute(), custCommCoreCl);
+            barButtonItem5.BindCommand(() => custCommCoreCl.Execute(), custCommCoreCl);
         }
 
         private void Form1_MdiChildActivate(object sender, EventArgs e)
         {
-            custCommCoreCl.form = this.ActiveMdiChild;
+            custCommCoreCl.Form = this.ActiveMdiChild;
         }
     }
 }

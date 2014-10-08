@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using System.Windows.Forms;
-
-using DevExpress.Mvvm;
 
 // for atribute "Command"
 using DevExpress.Mvvm.DataAnnotations;
 
+// for method RaiseCanExecuteChanged
 using DevExpress.Mvvm.POCO;
 
 
@@ -21,23 +19,21 @@ namespace CommandInDx
     {
 
         [Command(UseCommandManager = false)]
-        public void Execute(Form form)
+        public void Execute()
         {
-            form.Close();
-
-            MessageBox.Show(form.ToString());
+            Form.Close();
         }
 
-        public virtual Form form { get; set; }
+        public virtual Form Form { get; set; }
 
-        protected virtual void OnSelectedFormChanged()
+        protected virtual void OnFormChanged()
         {
-            this.RaiseCanExecuteChanged(x => x.Execute(null));
+            this.RaiseCanExecuteChanged(x => x.Execute());
         }
 
-        public bool CanExecute(Form form)
+        public bool CanExecute()
         {
-            return form != null;
+            return Form != null;
         }
     }
 }

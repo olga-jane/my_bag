@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 using System.Windows.Forms;
 
-using DevExpress.Mvvm;
-
 // for atribute "Command"
 using DevExpress.Mvvm.DataAnnotations;
 
@@ -28,7 +26,7 @@ namespace CommandInDx
             childForm.Show();
         }
 
-        protected virtual void OnSelectedformChanged()
+        protected virtual void OnParentChanged()
         {
             this.RaiseCanExecuteChanged(x => x.Execute());
         }
