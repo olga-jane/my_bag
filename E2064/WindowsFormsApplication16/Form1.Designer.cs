@@ -48,11 +48,13 @@ namespace WindowsFormsApplication16
             this.tree = new DevExpress.XtraTreeList.TreeList();
             this.treeListColumn1 = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.treeListColumn2 = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.fakeCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tree)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fakeCollectionBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // gridView2
@@ -60,10 +62,10 @@ namespace WindowsFormsApplication16
             this.gridView2.DetailHeight = 999;
             this.gridView2.GridControl = this.gridControl1;
             this.gridView2.Name = "gridView2";
-            this.gridView2.Layout += new System.EventHandler(this.gridView2_Layout);
             // 
             // gridControl1
             // 
+            this.gridControl1.Cursor = System.Windows.Forms.Cursors.Default;
             this.gridControl1.DataSource = this.bindingSource1;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             gridLevelNode1.LevelTemplate = this.gridView2;
@@ -78,7 +80,6 @@ namespace WindowsFormsApplication16
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1,
             this.gridView2});
-            this.gridControl1.SizeChanged += new System.EventHandler(this.gridControl1_SizeChanged);
             // 
             // bindingSource1
             // 
@@ -98,10 +99,6 @@ namespace WindowsFormsApplication16
             this.gridView1.OptionsDetail.SmartDetailExpand = false;
             this.gridView1.OptionsDetail.SmartDetailExpandButtonMode = DevExpress.XtraGrid.Views.Grid.DetailExpandButtonMode.AlwaysEnabled;
             this.gridView1.ScrollStyle = DevExpress.XtraGrid.Views.Grid.ScrollStyleFlags.LiveHorzScroll;
-            this.gridView1.TopRowChanged += new System.EventHandler(this.gridView1_TopRowChanged);
-            this.gridView1.MasterRowCollapsing += new DevExpress.XtraGrid.Views.Grid.MasterRowCanExpandEventHandler(this.gridView1_MasterRowCollapsing);
-            this.gridView1.MasterRowGetChildList += new DevExpress.XtraGrid.Views.Grid.MasterRowGetChildListEventHandler(this.gridView1_MasterRowGetChildList);
-            this.gridView1.MasterRowExpanded += new DevExpress.XtraGrid.Views.Grid.CustomMasterRowEventHandler(this.gridView1_MasterRowExpanded);
             // 
             // colID
             // 
@@ -122,9 +119,9 @@ namespace WindowsFormsApplication16
             this.tree.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
             this.treeListColumn1,
             this.treeListColumn2});
-            this.tree.Location = new System.Drawing.Point(39, 128);
+            this.tree.Location = new System.Drawing.Point(12, 106);
             this.tree.Name = "tree";
-            this.tree.Size = new System.Drawing.Size(400, 200);
+            this.tree.Size = new System.Drawing.Size(399, 111);
             this.tree.TabIndex = 1;
             // 
             // treeListColumn1
@@ -143,6 +140,11 @@ namespace WindowsFormsApplication16
             this.treeListColumn2.Visible = true;
             this.treeListColumn2.VisibleIndex = 1;
             // 
+            // fakeCollectionBindingSource
+            // 
+            this.fakeCollectionBindingSource.DataMember = "FakeCollection";
+            this.fakeCollectionBindingSource.DataSource = this.bindingSource1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -158,6 +160,7 @@ namespace WindowsFormsApplication16
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tree)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fakeCollectionBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -173,6 +176,7 @@ namespace WindowsFormsApplication16
         private DevExpress.XtraTreeList.TreeList tree;
         private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumn1;
         private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumn2;
+        private System.Windows.Forms.BindingSource fakeCollectionBindingSource;
     }
 }
 

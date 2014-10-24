@@ -44,9 +44,12 @@ namespace DXBindCommandsMvvm
             // "New" command bind
             barButtonItemNew.BindCommand(() => commandNew.Execute(), commandNew);
             barButtonItemBarNew.BindCommand(() => commandNew.Execute(), commandNew);
-
+            //barButtonItemBarNew.BindCommand(() => commandClose.Execute(), commandClose);
+            
             // "Close" command bind
-            barButtonItemClose.BindCommand(() => commandClose.Execute(), commandClose);
+
+            ICommand cmd = commandClose;
+            barButtonItemClose.BindCommand(() => cmd.Execute(), cmd);
             barButtonItemBarClose.BindCommand(() => commandClose.Execute(), commandClose);
         }
 

@@ -16,6 +16,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Grid;
+
+
 using DevExpress.XtraTreeList.Nodes;
 
 namespace WindowsFormsApplication16
@@ -28,7 +30,7 @@ namespace WindowsFormsApplication16
         {
             InitializeComponent();
             
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 5; i++)
             {
                 fakeList.Add(new ChildObject());
             }
@@ -40,18 +42,12 @@ namespace WindowsFormsApplication16
             tree.BeginUnboundLoad();
             try
             {
-                for (int j = 0; j < 200; j++)
+                for (int j = 0; j < 5; j++)
                 {
-                    TreeListNode node = tree.AppendNode(new object[] { "Foo" + j.ToString(), "Bar" + j.ToString() }, null);
-                    for (int k = 0; k < 10; k++)
-                    {
-                        TreeListNode node2 = tree.AppendNode(new object[] { "Parent:" + parent.Name + "_Foo" + j.ToString() + "_" + k.ToString(), "Bar" + j.ToString() }, node);
-                        for (int n = 0; n < 10; n++)
-                        {
-                            tree.AppendNode(new object[] { "Foo" + j.ToString() + "_" + k.ToString() + "_" + n.ToString(), "Bar" + j.ToString() }, node2);
-                        }
-
-                    }
+                    TreeListNode node = tree.AppendNode(new object[] { 
+                                       "Foo" + j.ToString(), 
+                                       "Bar" + j.ToString() }, 
+                                       null);
                 }
             }
             finally {
@@ -69,7 +65,7 @@ namespace WindowsFormsApplication16
             tree.Visible = false;
         }
 
-
+        
         private void gridView1_MasterRowGetChildList(object sender, DevExpress.XtraGrid.Views.Grid.MasterRowGetChildListEventArgs e)
         {
             e.ChildList = fakeList;
@@ -85,12 +81,13 @@ namespace WindowsFormsApplication16
             tree.Tag = view;
             tree.Visible = true;
         }
+
         private void gridView1_MasterRowExpanded(object sender, DevExpress.XtraGrid.Views.Grid.CustomMasterRowEventArgs e)
         {
             GridView view = gridView1.GetDetailView(e.RowHandle, e.RelationIndex) as GridView;
             UpdateTreeVisibility(view);
         }
-
+        
         private void gridView1_TopRowChanged(object sender, EventArgs e)
         {
             BeginInvoke(new MethodInvoker(delegate
@@ -101,26 +98,30 @@ namespace WindowsFormsApplication16
             }));
 
         }
-
+        
         private void gridView1_MasterRowCollapsing(object sender, MasterRowCanExpandEventArgs e)
         {
             tree.Tag = null;
             tree.Visible = false;
         }
-
+        
+        
         private void gridView2_Layout(object sender, EventArgs e)
         {
             GridView view = sender as GridView;
             UpdateTreeVisibility(view);
         }
 
+        
         private void gridControl1_SizeChanged(object sender, EventArgs e)
         {
             GridView view = tree.Tag as GridView;
             if (tree.Visible)
                 UpdateTreeVisibility(view);
-        }
+        } 
+        
     }
+
 
     public class Parent
     {

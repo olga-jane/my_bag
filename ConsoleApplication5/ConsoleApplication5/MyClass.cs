@@ -28,10 +28,11 @@ namespace ConsoleApplication5
             //graph.AddVertex("J");
 
             // Create the edges
-            Edge<string> a_b = new Edge<string>("A", "B");
-            Edge<string> a_d = new Edge<string>("B", "C");
+
             Edge<string> b_a = new Edge<string>("C", "D");
             Edge<string> b_c = new Edge<string>("D", "B");
+            Edge<string> a_b = new Edge<string>("A", "B");
+            Edge<string> a_d = new Edge<string>("B", "C");            
             Edge<string> b_e = new Edge<string>("D", "E");
             Edge<string> c_b = new Edge<string>("E", "C");
             Edge<string> c_f = new Edge<string>("E", "A");
