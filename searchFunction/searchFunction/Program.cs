@@ -1,0 +1,145 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace searchFunction
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<PipeLinePiece> pieces = new List<PipeLinePiece> { 
+            new PipeLinePiece("Компонент - 1"),
+            new PipeLinePiece("Компонент - 2"),
+            new PipeLinePiece("Компонент - 3"),
+            new PipeLinePiece("Компонент - 4"),
+            new PipeLinePiece("Компонент - 5"),
+            new PipeLinePiece("Компонент - 6")};
+
+            List<Joint> joints = new List<Joint> { 
+            new Joint("Стык - 1"),
+            new Joint("Стык - 2"),
+            new Joint("Стык - 3"),
+            new Joint("Стык - 4"),
+            new Joint("Стык - 5"),
+            new Joint("Стык - 6")};
+
+            pieces[0].Joints.Add(joints[0]);
+
+            pieces[1].Joints.Add(joints[0]);
+            pieces[1].Joints.Add(joints[1]);
+            pieces[1].Joints.Add(joints[2]);
+
+            pieces[2].Joints.Add(joints[1]);
+            pieces[2].Joints.Add(joints[3]);
+
+            pieces[3].Joints.Add(joints[2]);
+            pieces[3].Joints.Add(joints[4]);
+
+            pieces[4].Joints.Add(joints[3]);
+            pieces[4].Joints.Add(joints[4]);
+            pieces[4].Joints.Add(joints[5]);
+
+            pieces[5].Joints.Add(joints[5]);
+
+            joints[0].Pieces.Add(pieces[0]);
+            joints[0].Pieces.Add(pieces[1]);
+
+            joints[1].Pieces.Add(pieces[1]);
+            joints[1].Pieces.Add(pieces[2]);
+
+            joints[2].Pieces.Add(pieces[1]);
+            joints[2].Pieces.Add(pieces[3]);
+
+            joints[3].Pieces.Add(pieces[2]);
+            joints[3].Pieces.Add(pieces[4]);
+
+            joints[4].Pieces.Add(pieces[3]);
+            joints[4].Pieces.Add(pieces[4]);
+
+            joints[5].Pieces.Add(pieces[4]);
+            joints[5].Pieces.Add(pieces[5]);
+
+
+            foreach (var p in Pathfinder(pieces, pieces[0], pieces[5]))
+            {
+                foreach (var pi in p)
+                {
+                    Console.WriteLine(pi.Name);
+                }
+            }
+
+            Console.ReadKey();
+        }
+
+        public static List<List<PipeLinePiece>> 
+            Pathfinder(List<PipeLinePiece> pieces,
+                       PipeLinePiece startPiece,
+                       PipeLinePiece endPiece)
+        {
+            List<List<PipeLinePiece>> paths = new List<List<PipeLinePiece>>();
+
+            Stack<PipeLinePiece> stack = new Stack<PipeLinePiece>();
+
+            stack.Push(startPiece);
+
+            List<Joint> joints= stack.Peek().Joints;
+
+            List<int> path = new List<int>();
+            path.Add(0);
+            path.Add(0);
+            path.Add(0);
+            path.Add(0);
+            path.Add(0);
+            path.Add(0);
+            path.Add(0);
+            path.Add(0);
+            path.Add(0);
+            path.Add(0);
+
+            
+
+            while (stack.Count > 0)
+            {
+                for (int k = path[stack.Count - 1]; k < joints.Count; k++)
+                {
+                    for (int i = 0; i < 2; ++i)
+                    {
+                        if (!stack.Contains(joints[k].Pieces[i]))
+                        {
+                            path[stack.Count - 1] = k;
+                            stack.Push(joints[k].Pieces[i]);
+                            joints = stack.Peek().Joints;
+                            k = path[stack.Count - 1];
+                        }
+                    }
+                    if (stack.Peek() == endPiece)
+                    {
+                        paths.Add(stack.ToList<PipeLinePiece>());
+
+                        foreach (var pi in stack.ToList<PipeLinePiece>())
+                        {
+                            Console.WriteLine(pi.Name);
+                        }
+                        Console.WriteLine("---------------");
+                    }
+                }
+
+                if (stack.Count > 1)
+                {
+
+                    joints = stack.Pop().Joints;
+                    ++path[stack.Count - 1];
+                    
+                    continue;
+                }
+                break;
+            } 
+
+            
+
+            return paths;
+        }
+    }
+}
