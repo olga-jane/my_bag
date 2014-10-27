@@ -7,6 +7,7 @@ namespace searchFunction
 {
     public class PipeLinePiece
     {
+        public PipeLinePiece() { }
         public PipeLinePiece(string str)
         {
             Name = str;

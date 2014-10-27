@@ -7,6 +7,7 @@ namespace searchFunction
 {
     public class Joint
     {
+        public Joint() { }
         public Joint(string str)
         {
             Name = str;
