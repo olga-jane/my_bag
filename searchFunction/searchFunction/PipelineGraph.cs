@@ -7,32 +7,24 @@ namespace searchFunction
 {
     class PipelineGraph
     {
-        public List<PipeLinePiece> pieces = new List<PipeLinePiece>();
+        public List<PipeLinePiece> pieces;
 
+        public PipelineGraph(List<PipeLinePiece> pieces)
+        {
+            this.pieces = pieces;
+        }
 
         public void AddJoint(int fPoint, int tPoint)
         {
-            int max = fPoint > tPoint ? fPoint : tPoint;
+            Joint joint = new Joint("Стык: " + tPoint.ToString() + " < - > " + fPoint.ToString());
 
+            joint.Pieces.Add(pieces[fPoint]);
+            joint.Pieces.Add(pieces[tPoint]);
 
-            while (pieces.Count <= max)
-            {
-                pieces.Add(new PipeLinePiece(pieces.Count.ToString()));
-            }
-
-            Joint joint = new Joint(tPoint.ToString() + fPoint.ToString());
-
-            joint.Pieces.Add(pieces[fPoint - 1]);
-            pieces[fPoint - 1].Joints.Add(joint);
-
-            joint.Pieces.Add(pieces[tPoint - 1]);
-            pieces[tPoint - 1].Joints.Add(joint);
-
-            foreach (PipeLinePiece pl in joint.Pieces)
-            {
-                pl.Joints.Add(joint);
-            }
+            pieces[fPoint].Joints.Add(joint);
+            pieces[tPoint].Joints.Add(joint);
         }
+
 
         public List<List<PipeLinePiece>> Pathfinder(List<PipeLinePiece> pieces,
                                                     PipeLinePiece startPiece,
@@ -49,8 +41,6 @@ namespace searchFunction
             int[] path = new int[pieces.Count];
 
             int k = 0;
-
-
 
             while (stack.Count > 0)
             {
