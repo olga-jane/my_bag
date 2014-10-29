@@ -16,7 +16,7 @@ namespace searchFunction
 
         public void AddJoint(int fPoint, int tPoint)
         {
-            Joint joint = new Joint("Стык: " + tPoint.ToString() + " < - > " + fPoint.ToString());
+            Joint joint = new Joint("V" + tPoint.ToString() + "->" + "V" + fPoint.ToString());
 
             joint.Pieces.Add(pieces[fPoint]);
             joint.Pieces.Add(pieces[tPoint]);
@@ -42,7 +42,7 @@ namespace searchFunction
 
             int k = 0;
 
-            while (stack.Count > 0)
+            while (stack.Count > 0 && paths.Count < 1000)
             {
                 while (k < joints.Count)
                 {

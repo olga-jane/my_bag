@@ -15,7 +15,7 @@ namespace HoffmanPavleyBidirect
     class Program
     {
 
-        public static int maxNumber = 20;
+        public static int maxNumber = 150;
 
         static void Main(string[] args)
         {
