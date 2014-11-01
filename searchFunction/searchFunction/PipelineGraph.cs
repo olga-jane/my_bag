@@ -42,7 +42,7 @@ namespace searchFunction
 
             int k = 0;
 
-            while (stack.Count > 0 && paths.Count < 1000)
+            while (stack.Count > 0 && paths.Count < 1)
             {
                 while (k < joints.Count)
                 {
