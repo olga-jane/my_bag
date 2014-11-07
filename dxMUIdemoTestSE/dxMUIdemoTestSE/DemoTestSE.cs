@@ -17,216 +17,70 @@ using DevExpress.XtraEditors.Controls;
 using System.IO;
 
 // this atribute should be set culture as default
-[assembly: NeutralResourcesLanguageAttribute("en-US")]
+// [assembly: NeutralResourcesLanguageAttribute("en-US")]
 
 namespace dxMUIdemoTestSE
 {
     public partial class DemoTestSE : DevExpress.XtraEditors.XtraForm
     {
-        ComboBoxItemCollection cultureNamesColl;
-
-        /// <summary>
-        /// counting of child windows number
-        /// </summary>
         private int count;
+        private LanguageManager lm;
+        private TranslationManager tm;
+
+        public TranslationManager Tm { get { return tm; } }
 
         public DemoTestSE()
         {
             InitializeComponent();
 
-            // the bottom line should be discommented to create 
-            // a unique language culture with name "en-CS"
-            // CreateCustomeCulture("en-CS");
+            this.lm = new LanguageManager(barEditItemLang, repositoryItemComboBoxLang);
+         
+            barListItem1.ShowChecks = true;
 
-            // Collection of supported languages
-            cultureNamesColl = repositoryItemComboBoxLang.Items;
-
-            cultureNamesColl.BeginUpdate();
-
-            try
-            {
-                GetExistingCultureNames(cultureNamesColl);
-            }
-            catch ( DirectoryNotFoundException excep)
-            {
-                MessageBox.Show("Warning!\n" + excep.Message);
-            }
-            finally
-            {
-                cultureNamesColl.EndUpdate();
-            }
+            this.tm = new TranslationManager(barListItem1);
         }
 
-        #region 
-        // for useing this function, you must discommented it in the constructor
-        /// <summary>
-        /// creation function of new language culture
-        /// </summary>
-        /// <param name="prmStr">the name of new language culture</param>
-        private void CreateCustomeCulture(string prmStr)
+        private void ChangeTextLM()
         {
-            // Create a CultureAndRegionInfoBuilder object named "prmStr".
-            CultureAndRegionInfoBuilder cib = 
-                new CultureAndRegionInfoBuilder(prmStr, CultureAndRegionModifiers.None);
+            barSubItemFile.Caption = lm.ChangeControlsCaption("MenuFile");
 
-            // Populate the new CultureAndRegionInfoBuilder object with culture information.
-            cib.LoadDataFromCultureInfo(new CultureInfo("en-US"));
+            barSubItemOptions.Caption = lm.ChangeControlsCaption("MenuOptions");
 
-            // Populate the new CultureAndRegionInfoBuilder object with region information.
-            cib.LoadDataFromRegionInfo(new RegionInfo("US"));
+            barEditItemLang.Caption = lm.ChangeControlsCaption("ComboLang");
 
-            // Register the culture. 
-            try
-            {
-                // Register the custom culture.
-                cib.Register(); 
-            }
-            catch (InvalidOperationException)
-            {
-                MessageBox.Show("Swallow the exception: \nthe culture already is registered");
-            }
+            barButtonItemCloseAll.Caption = lm.ChangeControlsCaption("BtnName");
+
+            barButtonItemAddDoc.Caption = lm.ChangeControlsCaption("BtnName");
+
+            this.Text = lm.ChangeControlsCaption("TitleName");
         }
-        #endregion
 
-        /// <summary>
-        /// The renaming controls function
-        /// </summary>
-        /// <param name="rm"> Resource Manager object 
-        /// created for correspond resource file </param>
-        /// <param name="culture"> culture </param>
-        private void ChangeControlsCapture(ResourceManager rm, CultureInfo clt)
+        private void ChangeTextTM()
         {
-            barSubItemFile.Caption =
-                rm.GetString("MenuFile", clt);
+            barSubItemFile.Caption 
+                = tm.ChangeControlsCaption("barSubItemFile");
 
-            barSubItemOptions.Caption =
-                rm.GetString("MenuOptions", clt);
+            barSubItemOptions.Caption 
+                = tm.ChangeControlsCaption("barSubItemOptions");
 
-            barEditItemLang.Caption =
-                rm.GetString("ComboLang", clt);
+            barEditItemLang.Caption 
+                = tm.ChangeControlsCaption("barEditItemLang");
 
-            barButtonItemCloseAll.Caption =
-                rm.GetString("BtnName", clt);
+            barButtonItemCloseAll.Caption 
+                = tm.ChangeControlsCaption("barButtonItemCloseAll");
 
-            barButtonItemAddDoc.Caption =
-                rm.GetString("BtnName", clt);
+            barButtonItemAddDoc.Caption 
+                = tm.ChangeControlsCaption("barButtonItemAddDoc");
 
-            this.Text =
-                rm.GetString("TitleName", clt);
+            this.Text
+                = tm.ChangeControlsCaption("TitleName");
         }
 
-        private void SetCulture(CultureInfo culture)
+        private void barEditItemLang_HiddenEditor(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
+            lm.ChangeCulture();
+            ChangeTextLM();
         }
-        
-        private void barEditItemLang_EditValueChanged(object sender, EventArgs e)
-        {
-            ResourceManager rm;
-
-            // get store the current culture value
-            CultureInfo originalCulture = Thread.CurrentThread.CurrentCulture;
-
-            try
-            {
-                // In this case, we load built-in internal resources (* .resx)
-                if (barEditItemLang.EditValue is Language &&
-                    ((Language)barEditItemLang.EditValue).LngValue != "en-US")
-                {
-                    rm = ResourceManager.CreateFileBasedResourceManager("Strings", "Resources", null);
-                }
-                // In this case, we load external resources from the folder "Resources"  
-                // are compiled separately (* .resources) 
-                else
-                {
-                    barEditItemLang.EditValue = cultureNamesColl[0];
-                    rm = new ResourceManager("dxMUIdemoTestSE.Strings", typeof(Program).Assembly);
-                }
-
-                string cultureName = ((Language)barEditItemLang.EditValue).LngValue;
-
-                CultureInfo culture = CultureInfo.CreateSpecificCulture(cultureName);
-
-                SetCulture(culture);
-
-                // translation of text matter on controls
-                ChangeControlsCapture(rm, culture);
-
-            }
-            finally
-            {
-                // after the change of the names we are 
-                // going back to the original culture
-                SetCulture(originalCulture);
-            }
-        }
-
-        private void GetExistingCultureNames(ComboBoxItemCollection ClNameColl)
-        {
-            ClNameColl.Add(new Language("English (United States)", "en-US"));
-            barEditItemLang.EditValue = ClNameColl[0];
-
-            // The assigned name of resourse file
-            string strFileName = "Strings";
-            string fldResName = "Resources";
-            string mask = "??-??";
-
-            // The number of characters in culture type string
-            int cltTypeCount = mask.Count<char>();
-
-            string engDispName;
-            string cltrValName;
-
-            char[] separator = { ' ', '(' };
-
-            // Returns the names of the subdirectories (including their paths) 
-            // that match the specified search pattern in the specified 
-            // directory, and optionally searches subdirectories.
-            string appPath = Application.StartupPath + "//" + fldResName + "//";
-            string[] files = Directory.GetFiles(appPath, "*." + mask + "*.resources");
-
-            foreach (string f in files)
-            {
-                cltrValName = f.Substring(appPath.Length + strFileName.Length + 1, cltTypeCount);
-
-                // Gets the list of supported cultures filtered by the 
-                // specified CultureTypes parameter.
-                foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.InstalledWin32Cultures))
-                {
-                    if (ci.Name.Length >= cltTypeCount &&
-                        ci.Name.Substring(0, cltTypeCount) == cltrValName)
-                    {
-                        // forming the display name
-                        engDispName = ci.EnglishName.Split(separator)[0] + " (" +
-                                      ci.NativeName.Split(separator)[0] + ")";
-
-                        // specify the collection of items to display in the 
-                        // drop-down window (the RepositoryItemComboBox.Items 
-                        // property).
-                        ClNameColl.Add(new Language(engDispName, cltrValName));
-                        break;
-                    }
-                }
-            }
-            // Australian English is used as the base of a custom 
-            // language. In this case, the name of culture is 
-            // preserved ("en-AU") and displayed the name changed to 
-            // "English (customizable)"
-            foreach (Language cnc in ClNameColl)
-            {
-                if (cnc.LngValue == "en-AU")
-                {
-                    cnc.LngName = "English (customizable)";
-                }
-            }
-        }
-        
-
-
-        private void DemoTestSE_Load(object sender, EventArgs e) { }
-
-
         private void barButtonItemAddDoc_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             ++count;
@@ -235,11 +89,33 @@ namespace dxMUIdemoTestSE
             child.Text = this.Text + "-" + count + DateTime.Now.ToString();
             child.Show();
         }
-
         private void barButtonItemCloseAll_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             if (this.ActiveMdiChild != null)
                 this.ActiveMdiChild.Close();
+        }
+        private void barEditItemLang_EditValueChanged(object sender, EventArgs e) { }
+        private void DemoTestSE_Load(object sender, EventArgs e) { }
+        private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {}
+        private void barDockingMenuItem1_ListItemClick(object sender, DevExpress.XtraBars.ListItemClickEventArgs e) { }
+        private void barButtonItem1_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {}
+        private void barListItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            tm.ChangeCulture();
+            ChangeTextTM();
+            
+            //var crm = new ComponentResourceManager(typeof(Program));
+            //foreach (Control ctl in this.Controls)
+            //{
+            //    try
+            //    {
+            //        crm.ApplyResources(ctl, ctl.Name);
+            //    }
+            //    catch
+            //    {
+            //    }
+            //}
+            
         }
     }
 }

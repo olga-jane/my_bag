@@ -1,5 +1,6 @@
-TitleName=Header Example
-BtnName=Button Name
-MenuFile=Simple File
-MenuOptions=Some Options
-ComboLang=Slang
+barSubItemFile=Header Example
+barSubItemOptions=Button Name
+barEditItemLang=Simple File
+barButtonItemCloseAll=Some Options
+barButtonItemAddDoc=Slang
+TitleName="Title"
