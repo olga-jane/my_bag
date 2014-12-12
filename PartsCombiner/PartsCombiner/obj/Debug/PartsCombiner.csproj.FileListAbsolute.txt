@@ -1,0 +1,13 @@
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\obj\Debug\PartsCombiner.csprojResolveAssemblyReference.cache
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\bin\Debug\PartsCombiner.exe
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\bin\Debug\PartsCombiner.pdb
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Data.dll
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.dll
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Graphviz.dll
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Serialization.dll
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.xml
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Data.xml
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Graphviz.xml
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Serialization.xml
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\obj\Debug\PartsCombiner.exe
+c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\obj\Debug\PartsCombiner.pdb
