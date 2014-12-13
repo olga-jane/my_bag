@@ -25,6 +25,8 @@ namespace PartsCombiner
 
             TimeSpan dt0;
             DateTime dtMy0;
+           
+            int rn1, rn2;
 
             int vertexCount = 100000;
 
@@ -34,6 +36,7 @@ namespace PartsCombiner
             BidirectionalGraph<Part, Edge<Part>> graph = new BidirectionalGraph<Part, Edge<Part>>();
 
             List<Part> pieces = new List<Part>();
+            List<Joint> joints = new List<Joint>();
 
             for (int i = 0; i < vertexCount; ++i)
             {
@@ -42,16 +45,22 @@ namespace PartsCombiner
                 graph.AddVertex(pieces[i]);
             }
 
-            int rn1;
-            int rn2;
 
             for (int i = 0; i < vertexCount - 1; ++i)
             {
                 rn1 = rand.Next(vertexCount);
                 rn2 = rand.Next(vertexCount);
 
-                graph.AddEdge(new Edge<Part>(pieces[rn1], pieces[rn2]));
-                graph.AddEdge(new Edge<Part>(pieces[rn2], pieces[rn1]));
+                joints.Add(new Joint(pieces[rn1], pieces[rn2]));
+
+            }
+
+
+
+            for (int i = 0; i < vertexCount - 1; ++i)
+            {
+                graph.AddEdge(new Edge<Part>(joints[i].part1, joints[i].part2));
+                graph.AddEdge(new Edge<Part>(joints[i].part2, joints[i].part1));
             }
 
             // compute shortest paths

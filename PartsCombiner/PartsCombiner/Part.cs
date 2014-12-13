@@ -19,7 +19,7 @@ namespace PartsCombiner
 
         public override string ToString()
         {
-            return Number + " -*- " + Id.ToString() + "\n";
+            return Number;
         }
     }
 }
