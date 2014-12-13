@@ -11,3 +11,16 @@ c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\
 c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Serialization.xml
 c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\obj\Debug\PartsCombiner.exe
 c:\users\home\documents\visual studio 2012\Projects\PartsCombiner\PartsCombiner\obj\Debug\PartsCombiner.pdb
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\obj\Debug\PartsCombiner.exe
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\obj\Debug\PartsCombiner.pdb
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\bin\Debug\PartsCombiner.exe
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\bin\Debug\PartsCombiner.pdb
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Data.dll
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.dll
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Graphviz.dll
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Serialization.dll
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.xml
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Data.xml
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Graphviz.xml
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\bin\Debug\QuickGraph.Serialization.xml
+D:\my_docs\repositories\my_bag\PartsCombiner\PartsCombiner\obj\Debug\PartsCombiner.csprojResolveAssemblyReference.cache
