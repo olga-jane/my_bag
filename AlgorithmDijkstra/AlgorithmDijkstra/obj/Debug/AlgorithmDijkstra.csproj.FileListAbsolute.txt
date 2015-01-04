@@ -1,0 +1,5 @@
+D:\temp\Desktop\my_bag\AlgorithmDijkstra\AlgorithmDijkstra\bin\Debug\AlgorithmDijkstra.exe
+D:\temp\Desktop\my_bag\AlgorithmDijkstra\AlgorithmDijkstra\bin\Debug\AlgorithmDijkstra.pdb
+D:\temp\Desktop\my_bag\AlgorithmDijkstra\AlgorithmDijkstra\obj\Debug\AlgorithmDijkstra.csprojResolveAssemblyReference.cache
+D:\temp\Desktop\my_bag\AlgorithmDijkstra\AlgorithmDijkstra\obj\Debug\AlgorithmDijkstra.exe
+D:\temp\Desktop\my_bag\AlgorithmDijkstra\AlgorithmDijkstra\obj\Debug\AlgorithmDijkstra.pdb
