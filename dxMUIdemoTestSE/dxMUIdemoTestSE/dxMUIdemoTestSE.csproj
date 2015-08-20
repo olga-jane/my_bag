@@ -59,7 +59,7 @@
     <Compile Include="DemoTestSE.Designer.cs">
       <DependentUpon>DemoTestSE.cs</DependentUpon>
     </Compile>
-    <Compile Include="Language.cs" />
+    <Compile Include="LanguageManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.Designer.cs">
@@ -67,6 +67,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="TranslationManager.cs" />
     <Compile Include="XtraFormChild.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +77,7 @@
     <EmbeddedResource Include="DemoTestSE.resx">
       <DependentUpon>DemoTestSE.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

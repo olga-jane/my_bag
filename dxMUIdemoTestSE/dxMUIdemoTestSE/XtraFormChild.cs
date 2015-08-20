@@ -17,5 +17,10 @@ namespace dxMUIdemoTestSE
         {
             InitializeComponent();
         }
+
+        private void ChangeControlsCaptureTM()
+        {
+            //barSubItemFile.Caption = this.Parent.tm.ChangeControlsCaption("MenuFile");
+        }
     }
 }

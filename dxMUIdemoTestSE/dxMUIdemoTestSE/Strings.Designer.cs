@@ -61,38 +61,38 @@ namespace dxMUIdemoTestSE {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do nothing.
-        /// </summary>
-        internal static string BtnName {
-            get {
-                return ResourceManager.GetString("BtnName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
-        internal static string ComboLang {
+        internal static string barEditItemLang {
             get {
-                return ResourceManager.GetString("ComboLang", resourceCulture);
+                return ResourceManager.GetString("barEditItemLang", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
-        internal static string MenuFile {
+        internal static string barSubItemFile {
             get {
-                return ResourceManager.GetString("MenuFile", resourceCulture);
+                return ResourceManager.GetString("barSubItemFile", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
-        internal static string MenuOptions {
+        internal static string barSubItemOptions {
             get {
-                return ResourceManager.GetString("MenuOptions", resourceCulture);
+                return ResourceManager.GetString("barSubItemOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do nothing.
+        /// </summary>
+        internal static string BtnName {
+            get {
+                return ResourceManager.GetString("BtnName", resourceCulture);
             }
         }
         
